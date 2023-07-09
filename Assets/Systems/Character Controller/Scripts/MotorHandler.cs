@@ -73,6 +73,8 @@ public class MotorHandler : MonoBehaviour
 
     private void HandleVerticalMovement()
     {
+        //Inconsistance and only works moving forwards, might be better to use a raycast for ground checks.
+
         _IsGrounded = _CharacterController.isGrounded;
 
         if (_IsGrounded && _PlayerVerticalVelocity.y < 0)

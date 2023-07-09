@@ -458,7 +458,7 @@ MonoBehaviour:
   directionReference: {fileID: 1647288247}
   speed: 2
   runningSpeed: 5
-  jumpHeight: 5
+  jumpHeight: 10
 --- !u!143 &1122729574
 CharacterController:
   m_ObjectHideFlags: 0
