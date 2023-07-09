@@ -1,8 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(MotorHandler))]
+[RequireComponent(typeof(RotationHandler))]
 public class InputHandler : MonoBehaviour
 {
     private PlayerControls _PlayerControls;
+    private MotorHandler _MotorHandler;
+    private RotationHandler _RotationHandler;
 
     private bool _ShiftHeld;
     private bool _LeftClickHeld;
@@ -18,7 +22,12 @@ public class InputHandler : MonoBehaviour
     public bool GetLeftClickHeld() => _LeftClickHeld;
     public bool GetRightClickHeld() => _RightClickHeld;
 
-    private void Awake() => _PlayerControls = new();
+    private void Awake()
+    {
+        _PlayerControls = new();
+        _MotorHandler = GetComponent<MotorHandler>();
+        _RotationHandler = GetComponent<RotationHandler>();
+    }
 
     private void OnEnable()
     {
@@ -39,5 +48,14 @@ public class InputHandler : MonoBehaviour
     {
         _PlayerControls.Disable();
         _PlayerControls.Game.Disable();
+    }
+
+    private void Update()
+    {
+        _MotorHandler.moveDir = GetMovementInput();
+        _MotorHandler.hasJumped = GetJumpInput();
+        _MotorHandler.isRunning = GetRunningInput();
+
+        _RotationHandler.mouseInput = GetMouseInput();
     }
 }
