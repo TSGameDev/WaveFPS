@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     private PlayerControls _PlayerControls;
     private MotorHandler _MotorHandler;
     private RotationHandler _RotationHandler;
+    private Inventory _PlayerInventory;
 
     private bool _ShiftHeld;
     private bool _LeftClickHeld;
@@ -27,6 +28,7 @@ public class InputHandler : MonoBehaviour
         _PlayerControls = new();
         _MotorHandler = GetComponent<MotorHandler>();
         _RotationHandler = GetComponent<RotationHandler>();
+        _PlayerInventory = GetComponent<Inventory>();
     }
 
     private void OnEnable()
@@ -57,5 +59,10 @@ public class InputHandler : MonoBehaviour
         _MotorHandler.isRunning = GetRunningInput();
 
         _RotationHandler.mouseInput = GetMouseInput();
+
+        if(GetLeftClick())
+            _PlayerInventory.GetPrimaryWeapon()?.Fire();
+        
+        _PlayerInventory.GetPrimaryWeapon()?.SetAiming(GetRightClickHeld());
     }
 }
