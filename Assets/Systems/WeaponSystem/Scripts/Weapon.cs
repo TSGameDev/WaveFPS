@@ -83,6 +83,7 @@ public class Weapon : MonoBehaviour, IWeapon
             if (Physics.Raycast(weaponFirePoint.position, weaponFirePoint.forward, out RaycastHit hit, weaponData.GetWeaponRange()))
             {
                 Debug.DrawLine(weaponFirePoint.position, hit.point, Color.red, 60);
+                //Change spawning of the particle system to object pooling.
                 ParticleSystem p = Instantiate(weaponHitEffect, hit.point + (hit.normal * PARTICLE_SPAWN_NORMAL_OFFSET), Quaternion.identity);
                 p.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             }
@@ -90,6 +91,8 @@ public class Weapon : MonoBehaviour, IWeapon
         else
         {
             Reload();
+            //Remove Reload Runc when reload animation is implimented
+            ReloadFunc();
         }
     }
 
@@ -101,6 +104,8 @@ public class Weapon : MonoBehaviour, IWeapon
     public void ReloadFunc()
     {
         //Second relod function called upon reaching animation trigger
+        _CurrentStockpileAmmo -= _MaxMagAmmo;
+        _CurrentMagAmmo = _MaxMagAmmo;
     }
 
     public void SetAiming(bool _IsAiming)

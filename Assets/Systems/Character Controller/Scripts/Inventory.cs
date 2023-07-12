@@ -27,11 +27,14 @@ public class Inventory : MonoBehaviour
     private Currency playerCurrency;
     private IWeapon primaryWeapon;
     private IWeapon secondaryWeapon;
+    private IWeapon currentWeapon;
 
     public IWeapon GetPrimaryWeapon() => primaryWeapon;
     public void SetPrimaryWeapon(IWeapon _NewWeapon) => primaryWeapon = _NewWeapon;
     public IWeapon GetSecondaryWeapon() => secondaryWeapon;
     public void SetSecondaryWeapon(IWeapon _NewWeapon) => secondaryWeapon = _NewWeapon;
+    public IWeapon GetCurrentWeapon() => currentWeapon;
+    public void SetCurrentWeapon(IWeapon _NewWeapon) => currentWeapon= _NewWeapon;
 
     public Currency GetPlayerCurrency() => playerCurrency;
     public void AddCoins(int _AmountToAdd) => playerCurrency.coins += _AmountToAdd;

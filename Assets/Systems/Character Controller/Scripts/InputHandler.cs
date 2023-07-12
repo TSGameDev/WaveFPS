@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(RotationHandler))]
 public class InputHandler : MonoBehaviour
 {
+    public delegate void OnInteraction();
+    public OnInteraction OnPlayerInteraction;
+
     private PlayerControls _PlayerControls;
     private MotorHandler _MotorHandler;
     private RotationHandler _RotationHandler;
@@ -44,6 +47,8 @@ public class InputHandler : MonoBehaviour
         
         _PlayerControls.Game.RightClick.performed += ctx => _RightClickHeld = true;
         _PlayerControls.Game.RightClick.canceled += ctx => _RightClickHeld = false;
+
+        _PlayerControls.Game.Interaction.performed += ctx => OnPlayerInteraction();
     }
 
     private void OnDisable()

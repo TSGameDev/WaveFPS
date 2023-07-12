@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Test Weapon Data
   m_EditorClassIdentifier: 
   _WeaponName: 
-  _MagAmount: 0
-  _AmmoAmount: 0
-  _WeaponRange: 0
+  _MagAmount: 8
+  _AmmoAmount: 16
+  _WeaponRange: 10
+  _TimeBetweenShots: 0.1
+  _ShotDamage: 5
   _IsWeaponAutomatic: 0
-  _TimeBetweenShots: 0
-  _ShotDamage: 0
+  _WeaponAimOverride: {fileID: 0}
