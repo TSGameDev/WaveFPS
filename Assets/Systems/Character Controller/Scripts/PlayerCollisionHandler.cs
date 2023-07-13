@@ -7,7 +7,6 @@ public class PlayerCollisionHandler : MonoBehaviour
 {
     private InputHandler _InputHandler;
 
-    private string INTERACTION_TAG = "";
 
     private void Awake()
     {
@@ -16,8 +15,7 @@ public class PlayerCollisionHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(INTERACTION_TAG))
-            _InputHandler.OnPlayerInteraction = other.GetComponent<IInteractable>().Interact;
+        _InputHandler.OnPlayerInteraction = other.GetComponent<IInteractable>() != null ? other.GetComponent<IInteractable>().Interact : null;
     }
 
     private void OnTriggerStay(Collider other)

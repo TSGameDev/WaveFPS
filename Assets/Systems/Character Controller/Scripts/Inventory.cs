@@ -19,6 +19,10 @@ public class Inventory : MonoBehaviour
     //Remove this and Start when weapon pick up is implimented
     [SerializeField] private Weapon directSetWeaponDebug;
 
+    [SerializeField] private Transform weaponParent;
+    [SerializeField] private Transform weaponAimInTransform;
+    [SerializeField] private Transform weaponAimOutTransform;
+
     private void Start()
     {
         primaryWeapon = directSetWeaponDebug;
@@ -30,11 +34,24 @@ public class Inventory : MonoBehaviour
     private IWeapon currentWeapon;
 
     public IWeapon GetPrimaryWeapon() => primaryWeapon;
-    public void SetPrimaryWeapon(IWeapon _NewWeapon) => primaryWeapon = _NewWeapon;
     public IWeapon GetSecondaryWeapon() => secondaryWeapon;
-    public void SetSecondaryWeapon(IWeapon _NewWeapon) => secondaryWeapon = _NewWeapon;
     public IWeapon GetCurrentWeapon() => currentWeapon;
-    public void SetCurrentWeapon(IWeapon _NewWeapon) => currentWeapon= _NewWeapon;
+
+    public void SetPrimaryWeapon(IWeapon _NewWeapon)
+    {
+        primaryWeapon?.DestroyWeaponModel();
+        primaryWeapon = _NewWeapon;
+        primaryWeapon?.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+    }
+
+    public void SetSecondaryWeapon(IWeapon _NewWeapon)
+    {
+        secondaryWeapon?.DestroyWeaponModel();
+        secondaryWeapon = _NewWeapon;
+        secondaryWeapon?.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+    }
+
+    public void SetCurrentWeapon(IWeapon _NewWeapon) => currentWeapon = _NewWeapon;
 
     public Currency GetPlayerCurrency() => playerCurrency;
     public void AddCoins(int _AmountToAdd) => playerCurrency.coins += _AmountToAdd;

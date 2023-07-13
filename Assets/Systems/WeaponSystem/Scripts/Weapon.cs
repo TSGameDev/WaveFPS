@@ -88,22 +88,29 @@ public class Weapon : MonoBehaviour, IWeapon
                 p.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             }
         }
-        else
+        else if(_CurrentMagAmmo <= 0)
         {
             Reload();
-            //Remove Reload Runc when reload animation is implimented
-            ReloadFunc();
         }
     }
 
-    public void Reload()
+    public bool Reload()
     {
         //Trigger Reload Animation & Stop Firing
+        if (_CurrentStockpileAmmo >= _MaxMagAmmo)
+        {
+            //Can Reload
+            //Delete ReloadFunc() once animation event reloading is added
+            ReloadFunc();
+            return true;
+        }
+        //Can't Reload
+        return false;
     }
 
     public void ReloadFunc()
     {
-        //Second relod function called upon reaching animation trigger
+        //Triggered by animation event, currently triggered directly from reload.
         _CurrentStockpileAmmo -= _MaxMagAmmo;
         _CurrentMagAmmo = _MaxMagAmmo;
     }
@@ -120,5 +127,18 @@ public class Weapon : MonoBehaviour, IWeapon
         weaponAimInPos = weaponHolderTransform.position;
         weaponAimInPos = Vector3.SmoothDamp(weaponAimInPos, _TargetPos, ref weaponAimInPosVelocity, aimingInTime);
         weaponHolderTransform.position = weaponAimInPos;
+    }
+
+    public void DestroyWeaponModel()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SpawnWeaponModel(Transform _Parent, Transform _WeaponAimTransfrom, Transform _WeaponAimOutTransform)
+    {
+        Instantiate(gameObject, _Parent);
+        weaponHolderTransform = _Parent;
+        aimInTransform = _WeaponAimTransfrom;
+        weaponReturnTransform = _WeaponAimOutTransform;
     }
 }

@@ -107,8 +107,8 @@ MonoBehaviour:
   aimInTransform: {fileID: 0}
   weaponReturnTransform: {fileID: 0}
   sightTransform: {fileID: 1445476365769135188}
-  sightOffset: 1
-  aimingInTime: 1
+  sightOffset: 0.2
+  aimingInTime: 0.2
 --- !u!1 &6468561989625957636
 GameObject:
   m_ObjectHideFlags: 0

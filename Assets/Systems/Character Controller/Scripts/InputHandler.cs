@@ -2,9 +2,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(MotorHandler))]
 [RequireComponent(typeof(RotationHandler))]
+[RequireComponent(typeof(Inventory))]
 public class InputHandler : MonoBehaviour
 {
-    public delegate void OnInteraction();
+    public delegate void OnInteraction(Inventory _PlayerInventory);
     public OnInteraction OnPlayerInteraction;
 
     private PlayerControls _PlayerControls;
@@ -48,7 +49,7 @@ public class InputHandler : MonoBehaviour
         _PlayerControls.Game.RightClick.performed += ctx => _RightClickHeld = true;
         _PlayerControls.Game.RightClick.canceled += ctx => _RightClickHeld = false;
 
-        _PlayerControls.Game.Interaction.performed += ctx => OnPlayerInteraction();
+        _PlayerControls.Game.Interaction.performed += ctx => OnPlayerInteraction?.Invoke(_PlayerInventory);
     }
 
     private void OnDisable()
