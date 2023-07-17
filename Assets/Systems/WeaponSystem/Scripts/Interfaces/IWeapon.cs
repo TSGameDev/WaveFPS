@@ -8,5 +8,5 @@ public interface IWeapon
     public bool Reload();
     public void SetAiming(bool _IsAiming);
     public void DestroyWeaponModel();
-    public void SpawnWeaponModel(Transform _Parent, Transform _WeaponAimTransfrom, Transform _WeaponAimOutTransform);
+    public IWeapon SpawnWeaponModel(Transform _Parent, Transform _WeaponAimTransfrom, Transform _WeaponAimOutTransform);
 }

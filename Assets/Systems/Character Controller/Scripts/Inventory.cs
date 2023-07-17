@@ -40,8 +40,7 @@ public class Inventory : MonoBehaviour
     public void SetPrimaryWeapon(IWeapon _NewWeapon)
     {
         primaryWeapon?.DestroyWeaponModel();
-        primaryWeapon = _NewWeapon;
-        primaryWeapon?.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        primaryWeapon = _NewWeapon.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
     }
 
     public void SetSecondaryWeapon(IWeapon _NewWeapon)

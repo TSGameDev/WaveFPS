@@ -118,7 +118,6 @@ public class Weapon : MonoBehaviour, IWeapon
     public void SetAiming(bool _IsAiming)
     {
         Vector3 _TargetPos;
-
         if (_IsAiming)
             _TargetPos = aimInTransform.position + (transform.position - sightTransform.position) + (aimInTransform.forward * sightOffset);
         else
@@ -134,11 +133,13 @@ public class Weapon : MonoBehaviour, IWeapon
         Destroy(gameObject);
     }
 
-    public void SpawnWeaponModel(Transform _Parent, Transform _WeaponAimTransfrom, Transform _WeaponAimOutTransform)
+    public IWeapon SpawnWeaponModel(Transform _Parent, Transform _WeaponAimTransfrom, Transform _WeaponAimOutTransform)
     {
-        Instantiate(gameObject, _Parent);
-        weaponHolderTransform = _Parent;
-        aimInTransform = _WeaponAimTransfrom;
-        weaponReturnTransform = _WeaponAimOutTransform;
+        GameObject _NewInstance = Instantiate(gameObject, _Parent);
+        Weapon _NewWeapon = _NewInstance.GetComponent<Weapon>();
+        _NewWeapon.weaponHolderTransform = _Parent;
+        _NewWeapon.aimInTransform = _WeaponAimTransfrom;
+        _NewWeapon.weaponReturnTransform = _WeaponAimOutTransform;
+        return _NewWeapon;
     }
 }
