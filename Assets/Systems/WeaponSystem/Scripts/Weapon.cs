@@ -17,13 +17,18 @@ public class Weapon : MonoBehaviour, IWeapon
     [SerializeField] private Transform sightTransform;
     [SerializeField] private float sightOffset;
     [SerializeField] private float aimingInTime;
-
+    
     private Vector3 weaponAimInPos;
     private Vector3 weaponAimInPosVelocity;
 
     //Required Components
     private AudioSource _AudioSource;
-    private AnimatorOverrideController _Animator;
+    private Animator _Animator;
+
+    //Anim Triggers
+    int ANIMHASH_RELOAD = Animator.StringToHash("Reload");
+    int ANIMHASH_INSPECT = Animator.StringToHash("Inspect");
+    int ANIMHASH_HOLSTERWEAPON = Animator.StringToHash("HolsterWeapon");
 
     //Shooting Data
     private int _MaxMagAmmo;
@@ -42,7 +47,7 @@ public class Weapon : MonoBehaviour, IWeapon
 
     private void Start()
     {
-        _Animator = weaponData.GetAnimOverride();
+        _Animator.runtimeAnimatorController = weaponData.GetAnimOverride();
         _MaxMagAmmo = weaponData.GetMagAmount();
         _MaxStockpileAmmo = weaponData.GetAmmoAmount();
         _CurrentMagAmmo = _MaxMagAmmo;
@@ -100,6 +105,7 @@ public class Weapon : MonoBehaviour, IWeapon
         if (_CurrentStockpileAmmo >= _MaxMagAmmo)
         {
             //Can Reload
+            _Animator.SetTrigger(ANIMHASH_RELOAD);
             //Delete ReloadFunc() once animation event reloading is added
             ReloadFunc();
             return true;
@@ -126,6 +132,11 @@ public class Weapon : MonoBehaviour, IWeapon
         weaponAimInPos = weaponHolderTransform.position;
         weaponAimInPos = Vector3.SmoothDamp(weaponAimInPos, _TargetPos, ref weaponAimInPosVelocity, aimingInTime);
         weaponHolderTransform.position = weaponAimInPos;
+    }
+
+    public void Inspect()
+    {
+        _Animator.SetTrigger(ANIMHASH_INSPECT);
     }
 
     public void DestroyWeaponModel()
