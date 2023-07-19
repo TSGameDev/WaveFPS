@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7660034332760601214}
   - component: {fileID: 4006379024245424257}
   - component: {fileID: 6644107898478186152}
-  - component: {fileID: 5036214945179392999}
+  - component: {fileID: -3296816641859840709}
   m_Layer: 6
-  m_Name: DebugWeapon
+  m_Name: DebugWeapon Secondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35baf33eb53ef7743aa3aa8059982a50, type: 2}
+  - {fileID: 2100000, guid: 0eb7fe3ef129218419d3f7772e2c5827, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   sightTransform: {fileID: 1445476365769135188}
   sightOffset: 0.2
   aimingInTime: 0.2
---- !u!95 &5036214945179392999
+--- !u!95 &-3296816641859840709
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0

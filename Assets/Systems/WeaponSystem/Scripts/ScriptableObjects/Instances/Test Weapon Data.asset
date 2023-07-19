@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a65d8a1ed8378c4b868e3a228ab1f9e, type: 3}
   m_Name: Test Weapon Data
   m_EditorClassIdentifier: 
-  _WeaponName: 
+  _WeaponName: Debug Weapon
   _MagAmount: 8
   _AmmoAmount: 16
   _WeaponRange: 10
   _TimeBetweenShots: 0.1
   _ShotDamage: 5
   _IsWeaponAutomatic: 0
-  _WeaponAimOverride: {fileID: 0}
+  _WeaponAimOverride: {fileID: 22100000, guid: 48273cf577cb44745b2a53c8dbe0aa43, type: 2}

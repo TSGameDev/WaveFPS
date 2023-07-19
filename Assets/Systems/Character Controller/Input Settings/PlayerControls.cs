@@ -89,6 +89,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""dce30a3e-08be-4340-9853-ed91cfcee9fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""11b4b6c3-c79e-46a9-9b40-1761b5b298f7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +230,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1f12f4c-ba77-4752-b799-66812a96416a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20145d04-e291-4d42-aa38-bdf2f85b628d"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +267,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Game_LeftClick = m_Game.FindAction("LeftClick", throwIfNotFound: true);
         m_Game_RightClick = m_Game.FindAction("RightClick", throwIfNotFound: true);
         m_Game_Interaction = m_Game.FindAction("Interaction", throwIfNotFound: true);
+        m_Game_TogglePrimary = m_Game.FindAction("TogglePrimary", throwIfNotFound: true);
+        m_Game_ToggleSecondary = m_Game.FindAction("ToggleSecondary", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +337,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_LeftClick;
     private readonly InputAction m_Game_RightClick;
     private readonly InputAction m_Game_Interaction;
+    private readonly InputAction m_Game_TogglePrimary;
+    private readonly InputAction m_Game_ToggleSecondary;
     public struct GameActions
     {
         private @PlayerControls m_Wrapper;
@@ -306,6 +350,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @LeftClick => m_Wrapper.m_Game_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_Game_RightClick;
         public InputAction @Interaction => m_Wrapper.m_Game_Interaction;
+        public InputAction @TogglePrimary => m_Wrapper.m_Game_TogglePrimary;
+        public InputAction @ToggleSecondary => m_Wrapper.m_Game_ToggleSecondary;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -336,6 +382,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interaction.started += instance.OnInteraction;
             @Interaction.performed += instance.OnInteraction;
             @Interaction.canceled += instance.OnInteraction;
+            @TogglePrimary.started += instance.OnTogglePrimary;
+            @TogglePrimary.performed += instance.OnTogglePrimary;
+            @TogglePrimary.canceled += instance.OnTogglePrimary;
+            @ToggleSecondary.started += instance.OnToggleSecondary;
+            @ToggleSecondary.performed += instance.OnToggleSecondary;
+            @ToggleSecondary.canceled += instance.OnToggleSecondary;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -361,6 +413,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interaction.started -= instance.OnInteraction;
             @Interaction.performed -= instance.OnInteraction;
             @Interaction.canceled -= instance.OnInteraction;
+            @TogglePrimary.started -= instance.OnTogglePrimary;
+            @TogglePrimary.performed -= instance.OnTogglePrimary;
+            @TogglePrimary.canceled -= instance.OnTogglePrimary;
+            @ToggleSecondary.started -= instance.OnToggleSecondary;
+            @ToggleSecondary.performed -= instance.OnToggleSecondary;
+            @ToggleSecondary.canceled -= instance.OnToggleSecondary;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -387,5 +445,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+        void OnTogglePrimary(InputAction.CallbackContext context);
+        void OnToggleSecondary(InputAction.CallbackContext context);
     }
 }

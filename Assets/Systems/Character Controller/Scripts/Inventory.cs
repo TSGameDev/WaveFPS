@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct Currency
 {
@@ -41,16 +42,29 @@ public class Inventory : MonoBehaviour
     {
         primaryWeapon?.DestroyWeaponModel();
         primaryWeapon = _NewWeapon.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        SwapToPrimary();
     }
 
     public void SetSecondaryWeapon(IWeapon _NewWeapon)
     {
         secondaryWeapon?.DestroyWeaponModel();
-        secondaryWeapon = _NewWeapon;
-        secondaryWeapon?.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        secondaryWeapon = _NewWeapon.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        SwapToSecondary();
     }
 
     public void SetCurrentWeapon(IWeapon _NewWeapon) => currentWeapon = _NewWeapon;
+    public void SwapToPrimary()
+    {
+        secondaryWeapon?.ToggleWeaponActive(false);
+        primaryWeapon?.ToggleWeaponActive(true);
+        currentWeapon = primaryWeapon;
+    }
+    public void SwapToSecondary()
+    {
+        primaryWeapon?.ToggleWeaponActive(false);
+        secondaryWeapon?.ToggleWeaponActive(true);
+        SetCurrentWeapon(secondaryWeapon);
+    }
 
     public Currency GetPlayerCurrency() => playerCurrency;
     public void AddCoins(int _AmountToAdd) => playerCurrency.coins += _AmountToAdd;

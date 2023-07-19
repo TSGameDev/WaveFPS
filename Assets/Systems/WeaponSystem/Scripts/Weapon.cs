@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour, IWeapon
     private void Awake()
     {
         _AudioSource = GetComponent<AudioSource>();
+        _Animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -152,5 +153,16 @@ public class Weapon : MonoBehaviour, IWeapon
         _NewWeapon.aimInTransform = _WeaponAimTransfrom;
         _NewWeapon.weaponReturnTransform = _WeaponAimOutTransform;
         return _NewWeapon;
+    }
+
+    public void ToggleWeaponActive(bool _IsActive)
+    {
+        if (!_IsActive)
+        {
+            //Trigger holster anim and wait for it to finish.
+            //_Animator.SetTrigger(ANIMHASH_HOLSTERWEAPON);
+        }
+        //sets weapon to passed value, if false above if triggers anim. Activating a gameobject instantly triggers enter anim condition.
+        gameObject.SetActive(_IsActive);
     }
 }

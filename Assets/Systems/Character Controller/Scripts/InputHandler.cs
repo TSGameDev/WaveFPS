@@ -50,6 +50,9 @@ public class InputHandler : MonoBehaviour
         _PlayerControls.Game.RightClick.canceled += ctx => _RightClickHeld = false;
 
         _PlayerControls.Game.Interaction.performed += ctx => OnPlayerInteraction?.Invoke(_PlayerInventory);
+
+        _PlayerControls.Game.TogglePrimary.started += ctx => _PlayerInventory.SwapToPrimary();
+        _PlayerControls.Game.ToggleSecondary.started += ctx => _PlayerInventory.SwapToSecondary();
     }
 
     private void OnDisable()
