@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour
     {
         primaryWeapon?.DestroyWeaponModel();
         primaryWeapon = _NewWeapon.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        SetWeaponAnimTriggers();
         SwapToPrimary();
     }
 
@@ -49,21 +50,40 @@ public class Inventory : MonoBehaviour
     {
         secondaryWeapon?.DestroyWeaponModel();
         secondaryWeapon = _NewWeapon.SpawnWeaponModel(weaponParent, weaponAimInTransform, weaponAimOutTransform);
+        SetWeaponAnimTriggers();
         SwapToSecondary();
     }
 
     public void SetCurrentWeapon(IWeapon _NewWeapon) => currentWeapon = _NewWeapon;
     public void SwapToPrimary()
     {
-        secondaryWeapon?.ToggleWeaponActive(false);
-        primaryWeapon?.ToggleWeaponActive(true);
-        currentWeapon = primaryWeapon;
+        secondaryWeapon?.HolsterWeapon();
+        SetCurrentWeapon(primaryWeapon);
     }
     public void SwapToSecondary()
     {
-        primaryWeapon?.ToggleWeaponActive(false);
-        secondaryWeapon?.ToggleWeaponActive(true);
+        primaryWeapon?.HolsterWeapon();
         SetCurrentWeapon(secondaryWeapon);
+    }
+
+    private void SetWeaponAnimTriggers()
+    {
+        if(primaryWeapon != null && secondaryWeapon != null)
+        {
+            primaryWeapon.SetHolsterTrigger
+            (() =>
+            {
+                Debug.Log("Anim Trigger Holster Primary");
+                secondaryWeapon.ActiveWeapon(true); primaryWeapon.ActiveWeapon(false);
+            });
+
+            secondaryWeapon.SetHolsterTrigger
+            (() =>
+            {
+                Debug.Log("Anim Trigger Holster Secondary");
+                primaryWeapon.ActiveWeapon(true); secondaryWeapon.ActiveWeapon(false);
+            });
+        }
     }
 
     public Currency GetPlayerCurrency() => playerCurrency;

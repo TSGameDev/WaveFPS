@@ -1,3 +1,4 @@
+using Dev.ComradeVanti.WaitForAnim;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,9 @@ public class Weapon : MonoBehaviour, IWeapon
     int ANIMHASH_RELOAD = Animator.StringToHash("Reload");
     int ANIMHASH_INSPECT = Animator.StringToHash("Inspect");
     int ANIMHASH_HOLSTERWEAPON = Animator.StringToHash("HolsterWeapon");
+
+    public delegate void AnimTrigger();
+    public AnimTrigger HolsterTrigger;
 
     //Shooting Data
     private int _MaxMagAmmo;
@@ -154,15 +158,14 @@ public class Weapon : MonoBehaviour, IWeapon
         _NewWeapon.weaponReturnTransform = _WeaponAimOutTransform;
         return _NewWeapon;
     }
-
-    public void ToggleWeaponActive(bool _IsActive)
+    public void InvokeHolster()
     {
-        if (!_IsActive)
-        {
-            //Trigger holster anim and wait for it to finish.
-            //_Animator.SetTrigger(ANIMHASH_HOLSTERWEAPON);
-        }
-        //sets weapon to passed value, if false above if triggers anim. Activating a gameobject instantly triggers enter anim condition.
+        HolsterTrigger.Invoke();
+    }
+    public void HolsterWeapon() =>_Animator.SetTrigger(ANIMHASH_HOLSTERWEAPON);
+    public void SetHolsterTrigger(AnimTrigger _AnimTriggerFunction) => HolsterTrigger = _AnimTriggerFunction;
+    public void ActiveWeapon(bool _IsActive)
+    {
         gameObject.SetActive(_IsActive);
     }
 }
